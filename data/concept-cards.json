@@ -1,5 +1,40 @@
 [
   {
+    "term": "Agent",
+    "explanation": "An agent is a system where the model itself directs the work: given a goal, it decides which tool to call next, reads the result, and decides again, continuing until the goal is met or a stop condition is hit. The line is usually drawn at who holds control — in an agent the model dynamically directs its own process and tool usage, whereas in a workflow the model and its tools are orchestrated through predefined code paths written by a developer. The loop is what makes it an agent, and the loop only works because each step produces ground truth from the environment — a tool result, a test run, an error message — that the model can check its progress against instead of guessing. This buys the ability to handle open-ended tasks where nobody can predict in advance how many steps are needed, and it costs latency, tokens and a larger blast radius when a step goes wrong.",
+    "example": "You ask a coding agent to fix a failing test. It runs the suite to see the actual error, searches the repo for the function named in the stack trace, opens two files, makes an edit, reruns the suite, sees a second failure it did not know about at the start, and fixes that too. Nobody told it which files to open or how many rounds it would take — the path came out of what each step returned. A single prompt could have produced the same patch only if you had already found the right file and pasted it in yourself.",
+    "commonMisunderstanding": "That \"agent\" means \"no human involved\", and that anything calling a tool is an agent. Both miss the actual distinction. A fixed pipeline — summarise, then classify, then file — is a workflow even if every step calls a model and a tool; what makes something an agent is that the model, not the code, chooses the next step. The second mix-up is treating agentic as an upgrade. More steps means more cost, more latency and more places to go wrong, and errors compound across a run, so a task with a known fixed path is better served by a workflow. Autonomy is also not all-or-nothing in practice: real agents run inside permissions, sandboxes and human approval on consequential actions.",
+    "essentialPoints": [
+      "The defining trait is who decides the next step — the model chooses its tools and when to stop; when the path is hardcoded it is a workflow, not an agent.",
+      "It runs a loop: decide, act, observe. Each step feeds real results from the environment back in, which is what keeps a long run anchored to ground truth.",
+      "Tools are how it acts, so its reach is exactly the tools and permissions it has been given — no more.",
+      "Every step re-sends the accumulated history, so the context window is a hard budget on how long a run can go before it needs summarising or splitting.",
+      "It trades latency and cost for capability — a good deal for open-ended problems, a bad one for tasks with a predictable fixed path.",
+      "Errors compound over steps, so guardrails, sandboxes and human approval on consequential actions are part of the design rather than extras."
+    ],
+    "relatedConcepts": [
+      "Context window",
+      "Tool use (function calling)",
+      "Workflow",
+      "ReAct (reasoning and acting)",
+      "Human in the loop"
+    ],
+    "resources": [
+      {
+        "label": "Anthropic — Building effective agents (engineering blog)",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      },
+      {
+        "label": "IBM Think — What are AI agents?",
+        "url": "https://www.ibm.com/think/topics/ai-agents"
+      },
+      {
+        "label": "Yao et al. — ReAct: Synergizing Reasoning and Acting in Language Models (arXiv)",
+        "url": "https://arxiv.org/abs/2210.03629"
+      }
+    ]
+  },
+  {
     "term": "Context window",
     "explanation": "A model's context window is the maximum amount of text it can take into account for a single request, measured in tokens rather than words. It works like short-term working memory: everything sent in — the system instructions, the conversation so far, any attached documents, any tool results — plus the response the model writes all share one budget. It is separate from what the model learned during training: nothing placed in the window changes the model's weights, and the window is gone once the request ends. Going over has concrete failure modes — if the input alone exceeds the limit the request is rejected, and if the limit is reached while the answer is being written, generation stops early.",
     "example": "You paste a 300-page handbook into a chat and ask for a summary. Those pages fill most of the window, leaving only a small slice for the answer. Each follow-up question then carries the whole handbook plus every earlier turn back into the same budget, which is why a long conversation eventually hits the limit even though each individual message you type is short.",

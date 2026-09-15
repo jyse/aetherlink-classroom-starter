@@ -1,5 +1,9 @@
 [
   {
+    "term": "Agent",
+    "definition": "An AI system that works toward a goal over multiple steps, deciding for itself which tools to call and when to stop, rather than producing a single response to a single prompt."
+  },
+  {
     "term": "Context window",
     "definition": "The maximum amount of text a model can take into account at once, measured in tokens, covering the prompt, any history or documents included with it, and the response the model generates."
   }
