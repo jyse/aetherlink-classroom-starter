@@ -68,5 +68,112 @@
         "url": "https://arxiv.org/abs/2307.03172"
       }
     ]
+  },
+  {
+    "term": "Hallucination",
+    "explanation": "A hallucination is output that is fluent, confident and wrong — content that is nonsensical or unfaithful to the source the model was given, or simply not true of the world. It is not a bug in the ordinary sense and not the model lying: a language model generates the text that best fits the pattern, and no step in that process checks a claim against reality, so a fabricated citation is produced by exactly the same mechanism as a correct one. Researchers separate intrinsic hallucination, which contradicts the source material provided, from extrinsic hallucination, which the source can neither confirm nor deny. Part of why it persists is structural rather than accidental — training and evaluation reward confident guessing over admitting uncertainty, so a model that answers \"I don't know\" scores worse than one that guesses. The practical consequence is that confidence carries no information about accuracy, so anything checkable — a citation, an API name, a number — has to be verified against a source rather than trusted because it reads well.",
+    "example": "You ask a model for three papers on a niche topic and it returns three entries with authors, titles, venues and DOIs, formatted exactly like the real thing. Two are genuine. The third has a plausible title, real researchers who do work in that field, and a DOI that resolves to nothing — the model produced the shape of a citation with no lookup behind it. Nothing in the output marks the third entry as different from the other two: same formatting, same confident tone, same level of detail. The only way to tell them apart is to open all three links, which is the whole point — the error is invisible from the text alone and surfaces only on verification.",
+    "commonMisunderstanding": "That hallucination is a rare glitch a bigger model or a better prompt will eventually eliminate, and that a confident, detailed, well-formatted answer is therefore a reliable one. Both are wrong in ways that cost people. Generating plausible text is the mechanism itself, not a malfunction of it, so hallucination can be reduced — by grounding answers in retrieved sources, by explicitly allowing the model to say it does not know, by requiring quotes behind each claim — but not switched off; the vendor guidance that recommends those techniques says in the same breath that they do not eliminate hallucination entirely. The second mix-up reads fluency as confidence and confidence as accuracy. Tone is generated the same way as content and is not a signal about truth, which means detail and polish make a wrong answer more convincing rather than more likely to be right.",
+    "essentialPoints": [
+      "It is output that is fluent and confident but unsupported — either contradicting the source the model was given or unverifiable against it.",
+      "It comes from the normal generation mechanism: the model predicts text that fits the pattern, and nothing in that process checks a claim against reality.",
+      "Intrinsic hallucination contradicts the provided source while extrinsic hallucination cannot be verified from it, and the two call for different checks.",
+      "Confidence, detail and polish carry no information about accuracy, because tone is generated the same way as content.",
+      "Evaluation that rewards guessing over admitting uncertainty is part of why it persists, so it is not only a matter of bad training data.",
+      "It can be reduced through grounding, permission to say \"I don't know\" and quote-backed citations, but not eliminated — so anything checkable gets verified."
+    ],
+    "relatedConcepts": [
+      "Prompt",
+      "Retrieval-augmented generation (RAG)",
+      "Grounding",
+      "Human in the loop",
+      "Benchmark"
+    ],
+    "resources": [
+      {
+        "label": "Ji et al. — Survey of Hallucination in Natural Language Generation (arXiv)",
+        "url": "https://arxiv.org/abs/2202.03629"
+      },
+      {
+        "label": "Kalai et al. — Why Language Models Hallucinate (arXiv)",
+        "url": "https://arxiv.org/abs/2509.04664"
+      },
+      {
+        "label": "Anthropic — Reduce hallucinations (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+      }
+    ]
+  },
+  {
+    "term": "Prompt",
+    "explanation": "A prompt is everything the model is given to respond to on a single request, not just the sentence you typed. It bundles the system prompt that sets role and rules, the instructions themselves, any context or documents supplied with them, any worked examples, and in a conversation every earlier turn; in a tool-using system it also carries the definition of each available tool and every tool result returned so far. All of it is assembled into one input and re-sent on every request, because the model holds nothing between calls — which is why a prompt keeps growing turn by turn even when your own messages stay short. A prompt is not configuration and not training: nothing in it changes the model's weights, and it is gone once the request ends. The tension is that more is not automatically better — the prompt shares one token budget with the answer and recall degrades as that budget fills, so the real work is finding the smallest set of high-signal content that does the job.",
+    "example": "You ask a coding assistant to \"fix the failing test\". What actually reaches the model is a system prompt describing its role and rules, the definition of every tool it can call, your one-line request, the file you attached, and — after the first round — the command it ran plus the 200 lines of test output that came back. Your contribution is four words; the assembled prompt is several thousand tokens, and the next round re-sends all of it plus whatever the second tool call returned. This is why the same four words behave completely differently in a fresh session than they do twenty turns in: the instruction is identical, the prompt around it is not.",
+    "commonMisunderstanding": "That the prompt is just the message you type, and that prompting well means finding the right magic words. The first is wrong about scope: the system prompt, the conversation history, the attached documents and the accumulated tool results are all part of the same input, so a session can go wrong because of context you never saw rather than because of the sentence you wrote. The second mistakes a craft for a trick. What reliably helps is unglamorous — being clear and direct about what you want, showing a few worked examples of the output you expect, and structuring the prompt so that instructions, context and data cannot be mistaken for one another. There is no incantation, only a clear brief and the right context, and deciding what to leave out matters as much as deciding what to include.",
+    "essentialPoints": [
+      "A prompt is the entire input for one request, not only the message the user typed.",
+      "It typically bundles the system prompt, instructions, context or documents, examples, the conversation so far, and in tool-using systems the tool definitions and their results.",
+      "It is re-sent in full on every request because the model retains nothing between calls, so it grows with each turn.",
+      "It shares a single token budget with the model's response, which makes what to leave out as much of a decision as what to put in.",
+      "Prompting changes nothing permanent — it does not update the model's weights and does not survive the end of the request.",
+      "Technique beats magic words: clear direct instructions, a few worked examples, and structure that separates instructions from data."
+    ],
+    "relatedConcepts": [
+      "Context window",
+      "Token",
+      "System prompt",
+      "Few-shot prompting",
+      "Context engineering",
+      "Tool call"
+    ],
+    "resources": [
+      {
+        "label": "Anthropic — Prompting best practices (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      },
+      {
+        "label": "Anthropic — Effective context engineering for AI agents (engineering blog)",
+        "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      },
+      {
+        "label": "Brown et al. — Language Models are Few-Shot Learners (arXiv)",
+        "url": "https://arxiv.org/abs/2005.14165"
+      }
+    ]
+  },
+  {
+    "term": "Tool call",
+    "explanation": "A tool call is a structured request the model emits to run something it cannot do itself. You give the model a set of tools — each one a name, a description and a schema for its inputs — and when it judges that one is needed it returns a block naming that tool and a JSON object of arguments, instead of or alongside ordinary prose. The model never executes anything: your program parses that block, runs the real operation, and sends the output back as another message so the model can carry on with the result in hand. The cycle repeats while the model keeps asking and ends when it produces a final answer instead of another request, which is what turns a text generator into something that can read a file, query a database or send an email. The costs are that every call is an extra round trip, each result lands back in the context window, and the model's reach is bounded exactly by the tools and permissions it was handed.",
+    "example": "A support assistant is given one tool, lookup_order, which takes an order id. A customer asks \"where is order 4417?\" — the model has no way to know, so it returns a tool-use block naming lookup_order with the arguments {\"order_id\": \"4417\"}, and stops. Your code, not the model, calls the real order API, gets back a status of \"shipped\" and an ETA of 18 September, and sends that to the model as a tool result. Only then does the model write the sentence the customer actually sees. Swap the API for a stub returning yesterday's date and the model will confidently report yesterday's date — it has no way to check the result it was handed, which is precisely where the boundary of the model's responsibility sits.",
+    "commonMisunderstanding": "That the model runs the tool, and that giving a model tools makes the system agentic on its own. Neither holds. The model only ever emits a request — a structured block of text — and your application decides whether to honour it, which is exactly where permissions, sandboxing and human approval belong; a model holding a delete_file tool has no more power than the code between it and the filesystem allows. The second mix-up conflates two different things: a single fixed tool call inside a hardcoded pipeline is a workflow step, and what makes a system agentic is the model choosing which tool to call next and when to stop, in a loop, rather than the mere presence of a tool.",
+    "essentialPoints": [
+      "The model emits a structured request naming a tool and its arguments; it never executes the tool itself.",
+      "The surrounding program runs the operation and returns the output as a tool result, which the model then reads as ordinary context.",
+      "Tools are declared to the model as a name, a description and an input schema, so the model sees only that contract and the result — never the implementation.",
+      "The pattern is a loop: the application keeps executing and replying while the model keeps requesting, and exits when the model returns a final answer instead.",
+      "Tool calls are what let a model reach side effects, fresh data and external systems that text generation alone cannot touch.",
+      "Because execution lives in your code, that boundary — not the model — is where permissions, sandboxing and human approval are enforced."
+    ],
+    "relatedConcepts": [
+      "Agent",
+      "Context window",
+      "Prompt",
+      "Tool use (function calling)",
+      "Model Context Protocol (MCP)",
+      "Human in the loop"
+    ],
+    "resources": [
+      {
+        "label": "Anthropic — How tool use works (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works"
+      },
+      {
+        "label": "OpenAI — Function calling (API docs)",
+        "url": "https://developers.openai.com/api/docs/guides/function-calling"
+      },
+      {
+        "label": "Schick et al. — Toolformer: Language Models Can Teach Themselves to Use Tools (arXiv)",
+        "url": "https://arxiv.org/abs/2302.04761"
+      }
+    ]
   }
 ]
