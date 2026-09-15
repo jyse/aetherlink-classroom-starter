@@ -6,5 +6,17 @@
   {
     "term": "Context window",
     "definition": "The maximum amount of text a model can take into account at once, measured in tokens, covering the prompt, any history or documents included with it, and the response the model generates."
+  },
+  {
+    "term": "Hallucination",
+    "definition": "Output that a model presents with the same confidence as everything else but that is not supported by its input or by fact — an invented source, API, or detail — which is why anything checkable should be verified rather than trusted on tone."
+  },
+  {
+    "term": "Prompt",
+    "definition": "The text sent to a model for it to respond to, including the instructions, any context or examples supplied with them, and in a tool-using system the conversation and tool results that have accumulated so far."
+  },
+  {
+    "term": "Tool call",
+    "definition": "A request a model emits, in a structured format the surrounding program can parse, to run a function it has been given — such as reading a file or querying an API — with the result handed back to the model as more context; the model asks, the program executes."
   }
 ]
