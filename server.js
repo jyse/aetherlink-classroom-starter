@@ -140,6 +140,9 @@ async function sendStatic(res, requestPath) {
 const server = createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
+  if (url.pathname === "/api/profiles") {
+    return sendJsonFile(res, "profiles.json");
+  }
   if (url.pathname === "/api/glossary") {
     return sendJsonFile(res, "glossary.json");
   }

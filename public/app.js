@@ -1,7 +1,7 @@
 // Vanilla JS, no build step. Fetches real data from the tiny server's API
-// endpoints. Profiles, Glossary and Library are nav placeholders only in
-// this starter repo — participants build their pages across the course.
-// The Explain It Back game is fully working already.
+// endpoints. Glossary and Library are still nav placeholders — participants
+// build those pages across the course. Profiles and the Explain It Back game
+// are fully working already.
 
 const THEME_KEY = "academy-practice-theme";
 
@@ -85,6 +85,77 @@ function conceptCardFieldsHtml(c) {
 
 function findConceptCard(term) {
   return conceptCards.find((c) => c.term.toLowerCase() === String(term || "").toLowerCase());
+}
+
+// --- Profiles ------------------------------------------------------------
+// Renders data/profiles.json (served by GET /api/profiles) into the Profiles
+// page, reusing the card/avatar styles already in style.css.
+
+function initials(name) {
+  return String(name || "?")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("");
+}
+
+function profileFieldHtml(label, value) {
+  if (!value) return "";
+  return `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`;
+}
+
+function profileCardHtml(profile) {
+  const subtitle = [profile.role, profile.team].filter(Boolean).join(" · ");
+  return `
+    <article class="card">
+      <div class="card-header">
+        <div class="avatar">${escapeHtml(initials(profile.name))}</div>
+        <div>
+          <h3>${escapeHtml(profile.name || "Unnamed participant")}</h3>
+          ${subtitle ? `<small>${escapeHtml(subtitle)}</small>` : ""}
+        </div>
+      </div>
+      <dl>
+        ${profileFieldHtml("Experience", profile.experience)}
+        ${profileFieldHtml("Learning goal", profile.learningGoal)}
+        ${profileFieldHtml("Workflow to improve", profile.workflowToImprove)}
+      </dl>
+      ${profile.note ? `<p class="muted">${escapeHtml(profile.note)}</p>` : ""}
+    </article>
+  `;
+}
+
+async function initProfiles() {
+  const list = document.getElementById("profiles-list");
+  list.innerHTML = '<p class="loading">Loading profiles&hellip;</p>';
+
+  let profiles;
+  try {
+    const res = await fetch("/api/profiles");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || `Request failed: ${res.status}`);
+    }
+    profiles = await res.json();
+  } catch (err) {
+    list.innerHTML = `<p class="error-message">Could not load profiles: ${escapeHtml(err.message)}</p>`;
+    return;
+  }
+
+  if (!Array.isArray(profiles) || profiles.length === 0) {
+    list.innerHTML = `
+      <div class="card-grid">
+        <div class="empty-state">
+          <img src="/assets/aetherbot-pointing.png" alt="" class="mascot mascot-empty" />
+          <p class="muted">No profiles yet — add an entry to data/profiles.json.</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = `<div class="card-grid">${profiles.map(profileCardHtml).join("")}</div>`;
 }
 
 // --- Explain It Back game -----------------------------------------------
@@ -247,4 +318,5 @@ function initGame() {
 
 initTheme();
 initNav();
+initProfiles();
 initGame();
