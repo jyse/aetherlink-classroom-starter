@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "term": "Context window",
+    "explanation": "A model's context window is the maximum amount of text it can take into account for a single request, measured in tokens rather than words. It works like short-term working memory: everything sent in — the system instructions, the conversation so far, any attached documents, any tool results — plus the response the model writes all share one budget. It is separate from what the model learned during training: nothing placed in the window changes the model's weights, and the window is gone once the request ends. Going over has concrete failure modes — if the input alone exceeds the limit the request is rejected, and if the limit is reached while the answer is being written, generation stops early.",
+    "example": "You paste a 300-page handbook into a chat and ask for a summary. Those pages fill most of the window, leaving only a small slice for the answer. Each follow-up question then carries the whole handbook plus every earlier turn back into the same budget, which is why a long conversation eventually hits the limit even though each individual message you type is short.",
+    "commonMisunderstanding": "That a bigger context window is always better and that filling it is free. Accuracy and recall degrade as a window fills, and models retrieve facts placed in the middle of a long context less reliably than facts near the start or end — a finding known as \"lost in the middle\". Long inputs also cost more and are slower to process. A second common mix-up is treating the context window as memory or learning: the model does not remember anything between separate conversations, and nothing you put in the window trains it.",
+    "essentialPoints": [
+      "Measured in tokens, not words or characters — in English a token is roughly three quarters of a word, and many other languages tokenise less efficiently.",
+      "Input and output share the same budget: system prompt, conversation history, documents, tool results and the model's own response all count against it.",
+      "It is per-request working memory, not persistent memory and not training — it disappears when the request ends.",
+      "Multi-turn conversations re-send the earlier turns, so usage grows with every turn even when each new message is short.",
+      "Exceeding it fails in specific ways: the request is rejected outright, or generation stops once the limit is reached.",
+      "More context is not automatically better — what you choose to put in matters as much as how much fits."
+    ],
+    "relatedConcepts": [
+      "Token",
+      "Prompt",
+      "Context engineering",
+      "Retrieval-augmented generation (RAG)",
+      "Fine-tuning"
+    ],
+    "resources": [
+      {
+        "label": "Anthropic — Context windows (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows"
+      },
+      {
+        "label": "IBM Think — What is a context window?",
+        "url": "https://www.ibm.com/think/topics/context-window"
+      },
+      {
+        "label": "Liu et al. — Lost in the Middle: How Language Models Use Long Contexts (arXiv)",
+        "url": "https://arxiv.org/abs/2307.03172"
+      }
+    ]
+  }
+]

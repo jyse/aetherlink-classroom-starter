@@ -1,7 +1,6 @@
 // Vanilla JS, no build step. Fetches real data from the tiny server's API
-// endpoints. Library is still a nav placeholder — participants build that page
-// across the course. Profiles, Glossary and the Explain It Back game are fully
-// working already.
+// endpoints. Profiles, Glossary, Library and the Explain It Back game all
+// render from real data.
 
 const THEME_KEY = "academy-practice-theme";
 
@@ -45,9 +44,8 @@ function escapeHtml(str) {
 }
 
 // --- Shared concept-card field rendering ---------------------------------
-// Used by the Game's Reveal panel below. The Library page doesn't exist yet
-// in this starter repo, but when it's built it can reuse this same helper —
-// keep it working against the concept-card shape in data/concept-cards.json.
+// Used by both the Library page and the Game's Reveal panel below — keep it
+// working against the concept-card shape in data/concept-cards.json.
 
 function fieldSection(label, bodyHtml, accent) {
   return `
@@ -204,6 +202,53 @@ async function initGlossary() {
       <dl class="term-list">${entries.map(glossaryEntryHtml).join("")}</dl>
     </article>
   `;
+}
+
+// --- Library -------------------------------------------------------------
+// Renders data/concept-cards.json (served by GET /api/concept-cards) into the
+// Library page. Each card is one term with its six fields as collapsible rows,
+// reusing conceptCardFieldsHtml() — the same markup the Game's Reveal panel
+// shows, so an approved card looks identical in both places.
+
+function conceptCardHtml(card) {
+  return `
+    <article class="card concept-card">
+      <span class="chip">${escapeHtml(card.term || "Untitled term")}</span>
+      <div class="field-accordion">${conceptCardFieldsHtml(card)}</div>
+    </article>
+  `;
+}
+
+async function initLibrary() {
+  const list = document.getElementById("library-list");
+  list.innerHTML = '<p class="loading">Loading concept cards&hellip;</p>';
+
+  let cards;
+  try {
+    const res = await fetch("/api/concept-cards");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || `Request failed: ${res.status}`);
+    }
+    cards = await res.json();
+  } catch (err) {
+    list.innerHTML = `<p class="error-message">Could not load concept cards: ${escapeHtml(err.message)}</p>`;
+    return;
+  }
+
+  if (!Array.isArray(cards) || cards.length === 0) {
+    list.innerHTML = `
+      <div class="card-grid">
+        <div class="empty-state">
+          <img src="/assets/aetherbot-pointing.png" alt="" class="mascot mascot-empty" />
+          <p class="muted">No concept cards yet — enrich a glossary term into data/concept-cards.json.</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = `<div class="card-grid">${cards.map(conceptCardHtml).join("")}</div>`;
 }
 
 // --- Explain It Back game -----------------------------------------------
@@ -368,4 +413,5 @@ initTheme();
 initNav();
 initProfiles();
 initGlossary();
+initLibrary();
 initGame();
