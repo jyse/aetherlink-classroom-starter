@@ -1,7 +1,7 @@
 // Vanilla JS, no build step. Fetches real data from the tiny server's API
-// endpoints. Glossary and Library are still nav placeholders — participants
-// build those pages across the course. Profiles and the Explain It Back game
-// are fully working already.
+// endpoints. Library is still a nav placeholder — participants build that page
+// across the course. Profiles, Glossary and the Explain It Back game are fully
+// working already.
 
 const THEME_KEY = "academy-practice-theme";
 
@@ -156,6 +156,54 @@ async function initProfiles() {
   }
 
   list.innerHTML = `<div class="card-grid">${profiles.map(profileCardHtml).join("")}</div>`;
+}
+
+// --- Glossary ------------------------------------------------------------
+// Renders data/glossary.json (served by GET /api/glossary) into the Glossary
+// page. Glossary entries are deliberately minimal — term and definition only.
+// The richer example/misconception/resources detail belongs to a concept card.
+
+function glossaryEntryHtml(entry) {
+  return `
+    <dt>${escapeHtml(entry.term || "Untitled term")}</dt>
+    <dd>${escapeHtml(entry.definition || "")}</dd>
+  `;
+}
+
+async function initGlossary() {
+  const list = document.getElementById("glossary-list");
+  list.innerHTML = '<p class="loading">Loading glossary&hellip;</p>';
+
+  let entries;
+  try {
+    const res = await fetch("/api/glossary");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || `Request failed: ${res.status}`);
+    }
+    entries = await res.json();
+  } catch (err) {
+    list.innerHTML = `<p class="error-message">Could not load glossary: ${escapeHtml(err.message)}</p>`;
+    return;
+  }
+
+  if (!Array.isArray(entries) || entries.length === 0) {
+    list.innerHTML = `
+      <div class="card-grid">
+        <div class="empty-state">
+          <img src="/assets/aetherbot-pointing.png" alt="" class="mascot mascot-empty" />
+          <p class="muted">No glossary terms yet — add an entry to data/glossary.json.</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = `
+    <article class="card">
+      <dl class="term-list">${entries.map(glossaryEntryHtml).join("")}</dl>
+    </article>
+  `;
 }
 
 // --- Explain It Back game -----------------------------------------------
@@ -319,4 +367,5 @@ function initGame() {
 initTheme();
 initNav();
 initProfiles();
+initGlossary();
 initGame();

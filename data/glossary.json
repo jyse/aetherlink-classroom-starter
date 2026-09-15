@@ -1,1 +1,6 @@
-[]
+[
+  {
+    "term": "Context window",
+    "definition": "The maximum amount of text a model can take into account at once, measured in tokens, covering the prompt, any history or documents included with it, and the response the model generates."
+  }
+]
