@@ -1,0 +1,17 @@
+{
+  "name": "aether-library-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Starter repository for the AetherLink Worldline Wave 2 classroom (Teaching Days 1-2) — the Aether Library starter project.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "validate": "node scripts/validate.js",
+    "validate:fixtures": "node scripts/validate.js --fixtures",
+    "reset": "git checkout -- ."
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}

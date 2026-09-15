@@ -1,0 +1,10 @@
+[
+  {
+    "term": "Embedding",
+    "definition": "A numeric representation of text that places similar meanings near each other in a coordinate space, used to compare and retrieve related content."
+  },
+  {
+    "term": "Fine-tuning",
+    "definition": "Further training a pre-trained model on a narrower dataset to specialise its behaviour, changing the model's weights rather than just its input."
+  }
+]

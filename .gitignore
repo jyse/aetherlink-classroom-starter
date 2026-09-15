@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+
+# Explain It Back single-slot round state — regenerated each round, not
+# meant to be committed or carried between participants.
+data/latest-submission.json
+data/latest-feedback.json

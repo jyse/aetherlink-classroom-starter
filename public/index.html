@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aether Library</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="assets/aether-logo.png" alt="" class="brand-mark">Aether <span>Library</span></div>
+    <button id="theme-toggle" class="icon-button" aria-label="Toggle light/dark theme">🌓</button>
+  </header>
+
+  <div class="app">
+    <aside class="sidebar">
+      <nav aria-label="Main navigation">
+        <button data-view="profiles" class="selected">Profiles</button>
+        <button data-view="glossary">Glossary</button>
+        <button data-view="library">Library</button>
+        <button data-view="game">Game</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <p>Starter repo.</p>
+        <p>Worldline Wave 2 &middot; AetherLink</p>
+      </div>
+    </aside>
+
+    <main>
+      <section id="view-profiles" class="view">
+        <h1 class="page-heading">Profiles</h1>
+        <p class="page-lede">Participants who have joined the Academy for this cohort.</p>
+        <div id="profiles-list"></div>
+      </section>
+
+      <section id="view-glossary" class="view" hidden>
+        <h1 class="page-heading">Glossary</h1>
+        <p class="page-lede">AI terms the class has taught the Academy so far.</p>
+        <div id="glossary-list"></div>
+      </section>
+
+      <section id="view-library" class="view" hidden>
+        <h1 class="page-heading">Library</h1>
+        <p class="page-lede">Enriched concept cards — glossary terms turned into a full explanation, example, misconception, essential points, related concepts and resources.</p>
+        <div id="library-list"></div>
+      </section>
+
+      <section id="view-game" class="view" hidden>
+        <h1 class="page-heading">Explain It Back</h1>
+        <p class="page-lede">Read the term, write your own explanation, then ask your Claude Code session to check it.</p>
+
+        <div class="game-layout">
+          <div class="panel game-term-panel">
+            <div class="game-term-header">
+              <span class="chip" id="game-term-chip">Term</span>
+              <button id="game-next" class="ghost-button" type="button">New term</button>
+            </div>
+            <p id="game-term-loading" class="loading">Loading a term&hellip;</p>
+          </div>
+
+          <div class="panel game-answer-panel">
+            <label for="game-answer">Your explanation</label>
+            <textarea id="game-answer" rows="6" placeholder="Explain this term in your own words: what it means, a practical example, and anything people commonly get wrong about it."></textarea>
+            <div class="game-answer-actions">
+              <button id="game-submit" class="primary-button" type="button">Submit</button>
+              <span id="game-submit-status" class="muted"></span>
+            </div>
+          </div>
+
+          <div class="panel game-feedback-panel">
+            <div class="game-feedback-header">
+              <h2>Feedback</h2>
+              <button id="game-check-feedback" class="ghost-button" type="button">Check feedback</button>
+            </div>
+            <div id="game-feedback-body">
+              <p class="muted">Submit an explanation, then click "Check feedback" after asking Claude Code to check it.</p>
+            </div>
+          </div>
+
+          <div class="panel game-reveal-panel">
+            <div class="game-feedback-header">
+              <h2>Approved concept card</h2>
+              <button id="game-reveal" class="ghost-button" type="button">Reveal</button>
+            </div>
+            <div id="game-reveal-body">
+              <p class="muted">Reveal the approved card any time to self-review, independent of Claude's feedback.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

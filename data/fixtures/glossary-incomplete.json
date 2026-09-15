@@ -1,0 +1,10 @@
+[
+  {
+    "term": "Fine-tuning",
+    "definition": "Further training a pre-trained model on a narrower dataset to specialise its behaviour."
+  },
+  {
+    "term": "System prompt",
+    "definition": ""
+  }
+]
