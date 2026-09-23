@@ -6,5 +6,12 @@
     "learningGoal": "Learn to use Claude Code effectively for day-to-day engineering work",
     "workflowToImprove": "Reviewing pull requests faster with AI assistance",
     "note": "Fictional test persona used as classroom practice data — not a real participant."
+  },
+  {
+    "name": "Jessy The",
+    "role": "AI Developer",
+    "experience": "Self-taught developer since 2019, originally a law student at the University of Amsterdam. Builds AI applications, teaches AI, and speaks about it publicly.",
+    "learningGoal": "Teach as many people as possible to use AI efficiently, safely and well",
+    "workflowToImprove": "Turning teaching material into small runnable repos, so every session ends with something a participant can clone and change rather than slides they can only watch"
   }
 ]
