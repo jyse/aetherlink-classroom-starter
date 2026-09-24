@@ -91,6 +91,35 @@
     </main>
   </div>
 
+  <!-- AetherBOT — the glossary tutor. Answers only from data/glossary.json and
+       data/concept-cards.json, served by the existing read endpoints. No model
+       call and no network request leaves this machine. -->
+  <div id="aetherbot" class="bot">
+    <button id="bot-launcher" class="bot-launcher" type="button" aria-expanded="false" aria-controls="bot-panel">
+      <img src="/assets/aetherbot-thinking.png" alt="" class="bot-launcher-mascot" />
+      <span class="bot-launcher-label">Ask AetherBOT</span>
+    </button>
+
+    <section id="bot-panel" class="bot-panel" hidden aria-label="AetherBOT, the glossary tutor">
+      <header class="bot-header">
+        <img src="/assets/aetherbot-pointing.png" alt="" class="bot-avatar bot-avatar--header" />
+        <div class="bot-identity">
+          <h2>AetherBOT</h2>
+          <p class="bot-tagline">Glossary tutor &middot; works offline</p>
+        </div>
+        <button id="bot-close" class="icon-button bot-close" type="button" aria-label="Close AetherBOT">&times;</button>
+      </header>
+
+      <div id="bot-log" class="bot-log" role="log" aria-live="polite" aria-atomic="false"></div>
+
+      <form id="bot-form" class="bot-form" autocomplete="off">
+        <label class="sr-only" for="bot-input">Ask AetherBOT about a glossary term</label>
+        <input id="bot-input" class="bot-input" type="text" placeholder="Ask about a term&hellip;" />
+        <button class="primary-button bot-send" type="submit" aria-label="Send message">&#10148;</button>
+      </form>
+    </section>
+  </div>
+
   <script src="/app.js"></script>
 </body>
 </html>
