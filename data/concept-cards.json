@@ -141,6 +141,45 @@
     ]
   },
   {
+    "term": "Token",
+    "explanation": "A token is the unit a language model actually reads and writes: before the model sees your text, a tokenizer splits it into tokens drawn from a fixed vocabulary learned in advance, and the model generates its answer as tokens too. Tokens can be whole words, pieces of words, single characters or even raw bytes — most modern tokenizers use subword methods such as byte-pair encoding, which keep common words whole and break rare or unseen words into smaller pieces they already know. That is a deliberate compromise: a vocabulary of whole words would be enormous and still fail on new words, while single characters make sequences very long and each unit carries little meaning. So a token is not a word and not a fixed number of characters — Anthropic's rule of thumb is that a Claude token is roughly 3.5 English characters, and the ratio varies with language. It matters in practice because context windows, rate limits and costs are all counted in tokens, and the count depends on the tokenizer, so the same text can come to a different number of tokens on a different model.",
+    "example": "Take the word \"annoyingly\". A subword tokenizer might keep \"annoying\" whole and add \"ly\", giving two tokens; one with a different vocabulary might split it into \"annoy\", \"ing\" and \"ly\", giving three. Neither needs a separate vocabulary entry for every word ending in -ly, and neither is stuck on a word it has never seen, because it can fall back to smaller known pieces. Now scale up: by Anthropic's rule of thumb of about 3.5 characters per token, a 7,000-character English report comes to roughly 2,000 tokens. Count that same report on a Claude model before Opus 4.7 and on one from Opus 4.7 onward, and Anthropic's docs say the newer tokenizer produces roughly 30 percent more tokens for the same text. The words did not change, only the way they were cut up — which is why token counts are measured per model, not per word.",
+    "commonMisunderstanding": "That a token is a word. It is sometimes a whole word, but often a piece of one, a single character or punctuation mark, or a raw byte; how text is cut depends on the tokenizer's vocabulary, so \"tokens\" and \"words\" are not interchangeable and a word count is only a rough guide to a token count. The second mix-up is treating a token count as a fixed property of the text. It belongs to the text and the tokenizer together: different models can use different tokenizers, and Anthropic notes that its newer tokenizer produces roughly 30 percent more tokens for the same input than earlier Claude models, so a count measured on one model should not be reused to estimate cost or context-window fit on another.",
+    "essentialPoints": [
+      "A token is the unit a model reads and generates; a tokenizer splits text into tokens before the model processes it.",
+      "Tokens can be whole words, parts of words, single characters or bytes, so a token is not the same as a word.",
+      "Most modern tokenizers use subword methods such as byte-pair encoding, which keep common words whole and split rare or new words into smaller known pieces.",
+      "Subword tokenization is a trade-off: whole-word vocabularies grow enormous and fail on unseen words, while character-level splitting makes sequences long and each unit less meaningful.",
+      "Context windows, rate limits and costs are all measured in tokens, which is why token counts matter in practice.",
+      "The same text can produce a different number of tokens on a different model, because the count depends on the tokenizer — count against the model you actually plan to use."
+    ],
+    "relatedConcepts": [
+      "Context window",
+      "Tokenizer",
+      "Byte-pair encoding (BPE)",
+      "Large language model (LLM)",
+      "Embedding"
+    ],
+    "resources": [
+      {
+        "label": "Anthropic — Glossary: Tokens (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/about-claude/glossary"
+      },
+      {
+        "label": "Anthropic — Token counting (Claude docs)",
+        "url": "https://platform.claude.com/docs/en/build-with-claude/token-counting"
+      },
+      {
+        "label": "Hugging Face — Tokenization algorithms (Transformers docs)",
+        "url": "https://huggingface.co/docs/transformers/en/tokenizer_summary"
+      },
+      {
+        "label": "Sennrich, Haddow & Birch — Neural Machine Translation of Rare Words with Subword Units (arXiv)",
+        "url": "https://arxiv.org/abs/1508.07909"
+      }
+    ]
+  },
+  {
     "term": "Tool call",
     "explanation": "A tool call is a structured request the model emits to run something it cannot do itself. You give the model a set of tools — each one a name, a description and a schema for its inputs — and when it judges that one is needed it returns a block naming that tool and a JSON object of arguments, instead of or alongside ordinary prose. The model never executes anything: your program parses that block, runs the real operation, and sends the output back as another message so the model can carry on with the result in hand. The cycle repeats while the model keeps asking and ends when it produces a final answer instead of another request, which is what turns a text generator into something that can read a file, query a database or send an email. The costs are that every call is an extra round trip, each result lands back in the context window, and the model's reach is bounded exactly by the tools and permissions it was handed.",
     "example": "A support assistant is given one tool, lookup_order, which takes an order id. A customer asks \"where is order 4417?\" — the model has no way to know, so it returns a tool-use block naming lookup_order with the arguments {\"order_id\": \"4417\"}, and stops. Your code, not the model, calls the real order API, gets back a status of \"shipped\" and an ETA of 18 September, and sends that to the model as a tool result. Only then does the model write the sentence the customer actually sees. Swap the API for a stub returning yesterday's date and the model will confidently report yesterday's date — it has no way to check the result it was handed, which is precisely where the boundary of the model's responsibility sits.",

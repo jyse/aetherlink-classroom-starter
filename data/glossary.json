@@ -8,12 +8,52 @@
     "definition": "The maximum amount of text a model can take into account at once, measured in tokens, covering the prompt, any history or documents included with it, and the response the model generates."
   },
   {
+    "term": "Embedding",
+    "definition": "A list of numbers that represents a piece of text as a point in space, positioned so that items with similar meanings end up close together, which lets a program search and compare by meaning rather than by exact wording."
+  },
+  {
+    "term": "Few-shot prompting",
+    "definition": "Including a handful of worked examples of a task in the prompt so the model can infer the expected format and behaviour from them, without any change to the model itself; giving the instruction with no examples is called zero-shot."
+  },
+  {
+    "term": "Fine-tuning",
+    "definition": "Continuing to train an already-trained model on a smaller, targeted set of examples so that its internal weights change to suit a particular task or style — unlike prompting, which changes only the input, not the model."
+  },
+  {
     "term": "Hallucination",
     "definition": "Output that a model presents with the same confidence as everything else but that is not supported by its input or by fact — an invented source, API, or detail — which is why anything checkable should be verified rather than trusted on tone."
   },
   {
+    "term": "Knowledge cutoff",
+    "definition": "The point in time after which a model’s training data stops, so the model has no built-in knowledge of later events unless that information is supplied in the prompt or fetched with a tool."
+  },
+  {
+    "term": "Large language model (LLM)",
+    "definition": "A neural network trained on very large amounts of text to predict the next token, which lets it generate, summarise and transform language; it produces likely continuations of its input rather than looking answers up in a database."
+  },
+  {
+    "term": "Model Context Protocol (MCP)",
+    "definition": "An open standard, introduced by Anthropic in 2024, that defines how AI applications connect to external tools and data sources through MCP servers, so an integration built once can be used by any client that supports the protocol."
+  },
+  {
     "term": "Prompt",
     "definition": "The text sent to a model for it to respond to, including the instructions, any context or examples supplied with them, and in a tool-using system the conversation and tool results that have accumulated so far."
+  },
+  {
+    "term": "Retrieval-augmented generation (RAG)",
+    "definition": "A technique in which relevant documents are first retrieved — often by comparing embeddings — and inserted into the prompt, so the model answers from supplied source material rather than only from what it learned in training."
+  },
+  {
+    "term": "System prompt",
+    "definition": "Instructions supplied separately from the user’s messages, usually by whoever builds the application, that set the model’s role, rules and tone for the whole conversation before any user input arrives."
+  },
+  {
+    "term": "Temperature",
+    "definition": "A setting that controls how much randomness goes into choosing each next token: lower values favour the most likely tokens and give more consistent output, higher values give more varied output; it changes variety, not accuracy."
+  },
+  {
+    "term": "Token",
+    "definition": "The unit of text a model reads and writes — often a whole word, part of a word, or a punctuation mark — and the unit in which context windows, usage limits and costs are measured; a token is not the same as a word."
   },
   {
     "term": "Tool call",
