@@ -109,6 +109,279 @@
       <section id="view-library" class="view" hidden>
         <h1 class="page-heading">Library</h1>
         <p class="page-lede">Enriched concept cards — glossary terms turned into a full explanation, example, misconception, essential points, related concepts and resources.</p>
+
+        <!-- Static, hand-written example cards for the example glossary terms,
+             laid out the same way as a data-driven concept card. Rendering
+             data/concept-cards.json into #library-list below is still built
+             by participants. -->
+        <div class="library-example">
+          <span class="chip">Example cards</span>
+          <div class="card-grid">
+
+            <article class="card concept-card">
+              <span class="chip">AI Agent</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>An AI agent is an AI system that works toward a goal over several steps. It decides for itself which tools to use, looks at the result of each step, and then chooses what to do next until the goal is reached. That is the difference with a workflow, where a developer has fixed the steps in advance in code.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>You ask a coding agent to fix a failing test. It runs the tests to see the error, opens the file named in the error, makes a change, and runs the tests again. Nobody told it which file to open or how many tries it would need. It worked that out from what each step returned.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That an agent should run completely on its own. Agents make mistakes, and errors can add up over many steps. Good setups give an agent stopping conditions and ask a human to approve important actions, such as a payment, before they happen.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>An agent works toward a goal over multiple steps instead of answering once.</li>
+                    <li>It chooses its own next step and which tools to use.</li>
+                    <li>It checks the result of each step before deciding what to do next.</li>
+                    <li>Agents cost more time and money than a single prompt and mistakes can add up, so stop rules and human checkpoints matter.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">Tool call</span>
+                    <span class="chip">Workflow</span>
+                    <span class="chip">Human in the Loop</span>
+                    <span class="chip">Prompt</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic: Building effective agents</a></li>
+                    <li><a href="https://www.ibm.com/think/topics/ai-agents" target="_blank" rel="noopener">IBM Think: What are AI agents?</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+            <article class="card concept-card">
+              <span class="chip">Artificial Intelligence</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>Artificial intelligence (AI) is technology that lets computers do things we usually link to human thinking, such as learning, understanding language, solving problems and making decisions. Most AI today uses machine learning: instead of a person writing every rule, the system learns patterns from example data and applies them to new data. Generative AI, such as a chat assistant, is one kind of AI that creates new text, images or audio.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>A spam filter is an everyday example. Nobody writes a rule for every possible spam message. Instead, the filter learns from many examples of spam and normal email, and then uses what it learned to sort new messages it has never seen before.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That AI and machine learning mean the same thing. All machine learning is AI, but not all AI is machine learning. A thermostat that follows fixed rules to switch the heating on is also a simple form of AI, even though it never learns anything.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>AI is technology that lets computers simulate human abilities such as learning, problem solving and decision making.</li>
+                    <li>Machine learning is the part of AI where systems learn patterns from data instead of following only hand-written rules.</li>
+                    <li>Generative AI is a kind of AI that creates new content such as text, images or audio.</li>
+                    <li>All machine learning is AI, but not all AI is machine learning.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">Machine learning</span>
+                    <span class="chip">Generative AI</span>
+                    <span class="chip">AI Agent</span>
+                    <span class="chip">Tokens</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank" rel="noopener">IBM Think: What is artificial intelligence (AI)?</a></li>
+                    <li><a href="https://www.ibm.com/think/topics/machine-learning" target="_blank" rel="noopener">IBM Think: What is machine learning?</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+            <article class="card concept-card">
+              <span class="chip">Context</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>Context is everything the model can see when it writes its answer: your prompt, the conversation so far, any instructions, documents or tool results, and the answer it is writing. It works like the model's working memory, which is different from what it learned during training. The space is limited, and more is not always better: as the context fills up, the model gets worse at finding and using the right details.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>In a long chat, every message you send and every answer you get stays in the context, so it keeps growing. If you paste in a 200 page report and then ask one small question, the answer has to be found among everything else in there. Giving only the part of the report that matters is often the better choice.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That the model simply knows everything you have ever told it. It only works with what is in its context right now. And a bigger context is not automatically better: Anthropic notes that accuracy and recall drop as the context grows, so choosing what goes in matters as much as how much fits.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>Context is all the text the model can use when it responds, including its own response.</li>
+                    <li>It includes the prompt, the conversation so far, instructions, documents and tool results.</li>
+                    <li>Context is the model's working memory, separate from what it learned in training.</li>
+                    <li>Space is limited and quality drops as it fills, so include what matters most.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">Tokens</span>
+                    <span class="chip">Prompt</span>
+                    <span class="chip">Context window</span>
+                    <span class="chip">AI Agent</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://platform.claude.com/docs/en/build-with-claude/context-windows" target="_blank" rel="noopener">Anthropic: Context windows</a></li>
+                    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic: Effective context engineering for AI agents</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+            <article class="card concept-card">
+              <span class="chip">Human in the Loop</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>Human in the loop means a person takes an active part in how an AI system works: checking, approving, correcting or overriding what it does. People can be involved when the AI is trained, when its output is reviewed, or while it is running, for example by approving an action before it happens. The goal is to keep the speed of automation while adding human judgement where mistakes would be costly.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>An AI agent helps a finance team pay invoices. It reads the invoices, matches them to orders and prepares the payments on its own, but it stops and asks a person to approve before any money is sent. The routine work is automated, and the step with the biggest impact still gets a human check.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That a human in the loop means the AI is not good enough. It is a deliberate safeguard, placed where a mistake would have a big impact. It also has a cost: human review is slower and more expensive, and people get tired and make mistakes too, so the check should go where it matters most.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>A person actively takes part in the AI system's decisions by reviewing, approving, correcting or overriding them.</li>
+                    <li>Humans can be involved during training, when output is evaluated, or while the system is running.</li>
+                    <li>It matters most before high impact actions, such as payments.</li>
+                    <li>Human review adds accuracy and accountability but is slower and more expensive, so place it where it counts.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">AI Agent</span>
+                    <span class="chip">Artificial Intelligence</span>
+                    <span class="chip">Prompt</span>
+                    <span class="chip">Reinforcement learning from human feedback (RLHF)</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://www.ibm.com/think/topics/human-in-the-loop" target="_blank" rel="noopener">IBM Think: What is human in the loop (HITL)?</a></li>
+                    <li><a href="https://www.ibm.com/think/topics/ai-agents" target="_blank" rel="noopener">IBM Think: What are AI agents?</a></li>
+                    <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic: Building effective agents</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+            <article class="card concept-card">
+              <span class="chip">Prompt</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>A prompt is the text you give an AI model to get a response: your question or instructions, plus any background, examples or documents you add. The model does not know your situation unless the prompt tells it, so a clear, specific prompt with the right context gets better results than a vague one. Say exactly what you want, explain why it matters, and show an example when the format is important.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>Compare "Write a summary" with "Write a three sentence summary of this report for our sales team, focusing on the new prices, because they need to explain them to customers tomorrow." The second prompt says how long, for whom, what to focus on and why, so the model has far less to guess.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That the model knows what you mean. Anthropic suggests thinking of it as a brilliant new colleague who lacks context on your work: if a person with no background would be confused by your prompt, the model will be too. Another is that a prompt is only the question you type. It also includes the instructions, examples and documents you send along with it.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>A prompt is everything you send the model: instructions, questions, background, examples and documents.</li>
+                    <li>The quality of the prompt strongly affects the quality of the answer.</li>
+                    <li>Be clear and specific, and explain the goal or reason behind your request.</li>
+                    <li>Examples help when you want a particular format or style.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">Context</span>
+                    <span class="chip">Tokens</span>
+                    <span class="chip">Prompt engineering</span>
+                    <span class="chip">AI Agent</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank" rel="noopener">Anthropic: Prompting best practices</a></li>
+                    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Anthropic: Prompt engineering overview</a></li>
+                    <li><a href="https://www.ibm.com/think/topics/prompt-engineering" target="_blank" rel="noopener">IBM Think: What is prompt engineering?</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+            <article class="card concept-card">
+              <span class="chip">Tokens</span>
+              <div class="field-accordion">
+                <details class="field-row field-row--cyan">
+                  <summary>Explanation</summary>
+                  <div class="field-body"><p>Tokens are the small pieces of text a model actually reads and writes. Before the model sees your text, a tokenizer splits it into tokens, which can be whole words, parts of words or single characters, and turns them into numbers, because models can only work with numbers. Common words often stay whole, while rare words are split into smaller pieces. Context limits, usage limits and costs are all counted in tokens.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Example</summary>
+                  <div class="field-body"><p>Split by whole words, "Jim Henson was a puppeteer" gives five pieces. A subword tokenizer keeps common words whole and breaks rarer words into smaller parts, so the token count can differ from the word count. As a rough guide, Anthropic says one Claude token is about 3.5 English characters, so a 7,000 character text comes to roughly 2,000 tokens.</p></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Common misunderstanding</summary>
+                  <div class="field-body"><p>That one token is one word. A token can be a whole word, part of a word or a single character, so the number of tokens is usually different from the number of words. Also, the same text can count as a different number of tokens on different models, because models can use different tokenizers.</p></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Essential points</summary>
+                  <div class="field-body"><ul>
+                    <li>Tokens are the pieces of text a model reads and writes.</li>
+                    <li>A token can be a word, part of a word or a single character, so tokens are not the same as words.</li>
+                    <li>Tokens are turned into numbers, because models only work with numbers.</li>
+                    <li>Context limits, usage limits and costs are all measured in tokens.</li>
+                  </ul></div>
+                </details>
+                <details class="field-row field-row--cyan">
+                  <summary>Related concepts</summary>
+                  <div class="field-body"><div class="tag-list">
+                    <span class="chip">Context</span>
+                    <span class="chip">Prompt</span>
+                    <span class="chip">Context window</span>
+                    <span class="chip">Tokenizer</span>
+                  </div></div>
+                </details>
+                <details class="field-row field-row--violet">
+                  <summary>Resources</summary>
+                  <div class="field-body"><ul>
+                    <li><a href="https://platform.claude.com/docs/en/about-claude/glossary" target="_blank" rel="noopener">Anthropic: Glossary</a></li>
+                    <li><a href="https://huggingface.co/learn/llm-course/chapter2/4" target="_blank" rel="noopener">Hugging Face: Tokenizers (LLM Course)</a></li>
+                    <li><a href="https://platform.claude.com/docs/en/build-with-claude/token-counting" target="_blank" rel="noopener">Anthropic: Token counting</a></li>
+                  </ul></div>
+                </details>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
         <div id="library-list"></div>
       </section>
 

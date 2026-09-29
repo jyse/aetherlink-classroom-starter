@@ -411,6 +411,14 @@ main {
   margin-bottom: 16px;
 }
 
+.library-example {
+  margin-bottom: 24px;
+}
+
+.library-example > .chip {
+  margin-bottom: 16px;
+}
+
 .timeline {
   list-style: none;
   margin: 4px 0 0;
