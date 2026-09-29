@@ -398,6 +398,52 @@ main {
   padding: 2px 10px;
 }
 
+.profile-example {
+  margin-bottom: 16px;
+}
+
+.glossary-example {
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+.glossary-example > .chip {
+  margin-bottom: 16px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0 0 0 14px;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline li {
+  position: relative;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+.timeline li .muted {
+  display: block;
+}
+
+.timeline li:last-child::before {
+  background: var(--cyan);
+}
+
 .page-heading-row {
   display: flex;
   align-items: flex-end;

@@ -30,12 +30,79 @@
       <section id="view-profiles" class="view">
         <h1 class="page-heading">Profiles</h1>
         <p class="page-lede">Participants who have joined the Academy for this cohort.</p>
+
+        <!-- A static, hand-written example so participants can see what a
+             finished profile card looks like. It is not data-driven: the
+             data file, /api/profiles endpoint and rendering code that fill
+             #profiles-list below are still built in Assignment 2. -->
+        <div class="card-grid profile-example">
+          <article class="card concept-card">
+            <span class="chip">Example profile</span>
+            <div class="card-header">
+              <span class="avatar" aria-hidden="true">JT</span>
+              <div>
+                <h3>Jessy The</h3>
+                <small>AI Developer &middot; building AI apps</small>
+              </div>
+            </div>
+            <dl>
+              <div>
+                <dt>Experience</dt>
+                <dd>
+                  <ol class="timeline">
+                    <li><strong>Tax Law</strong> <span class="muted">studied and graduated at the University of Amsterdam</span></li>
+                    <li><strong>Tax Law consultant</strong></li>
+                    <li><strong>Self-taught Software Developer</strong> <span class="muted">since 2018</span></li>
+                    <li><strong>Developer roles</strong> <span class="muted">in healthcare, at Rabobank and at Lightyear</span></li>
+                    <li><strong>Teacher, public speaker and technical content creator</strong></li>
+                    <li><strong>AI Developer</strong> <span class="muted">now, building AI apps</span></li>
+                  </ol>
+                </dd>
+              </div>
+              <div>
+                <dt>Worked with</dt>
+                <dd class="tag-list">
+                  <span class="chip">Healthcare</span>
+                  <span class="chip">Rabobank</span>
+                  <span class="chip">Lightyear</span>
+                  <span class="chip">Teaching</span>
+                  <span class="chip">Public speaking</span>
+                  <span class="chip">Technical content</span>
+                  <span class="chip">AI apps</span>
+                </dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+
         <div id="profiles-list"></div>
       </section>
 
       <section id="view-glossary" class="view" hidden>
         <h1 class="page-heading">Glossary</h1>
         <p class="page-lede">AI terms the class has taught the Academy so far.</p>
+
+        <!-- A static, hand-written example of a finished glossary. It is not
+             data-driven: rendering data/glossary.json into #glossary-list
+             below is still built by participants. -->
+        <div class="glossary-example">
+          <span class="chip">Example terms</span>
+          <dl class="term-list">
+            <dt>AI Agent</dt>
+            <dd>An AI system that works toward a goal over several steps, deciding for itself which tools to use and when it is done, instead of giving one answer to one prompt.</dd>
+            <dt>Artificial Intelligence</dt>
+            <dd>The broad field of building computer systems that can do tasks we usually associate with human intelligence, such as understanding language, recognising images or making decisions.</dd>
+            <dt>Context</dt>
+            <dd>Everything the model can see when it responds: your prompt, the conversation so far, and any documents or tool results included with it. The model only works with what is in its context, and that space is limited.</dd>
+            <dt>Human in the Loop</dt>
+            <dd>A way of working where a person reviews, approves or corrects an AI system's work at key steps, especially before actions that are hard to undo, instead of letting it run fully on its own.</dd>
+            <dt>Prompt</dt>
+            <dd>The text you send to an AI model to get a response: your instructions, plus any examples or background information you include with them.</dd>
+            <dt>Tokens</dt>
+            <dd>The small chunks of text a model reads and writes, often a whole word or part of a word. Context limits, usage limits and costs are all measured in tokens.</dd>
+          </dl>
+        </div>
+
         <div id="glossary-list"></div>
       </section>
 
